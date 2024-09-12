@@ -4,6 +4,7 @@ import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import vn.edu.likelion.DemoAuthJWT.common.exceptions.AppException;
 import vn.edu.likelion.DemoAuthJWT.common.util.EmailUtil;
 import vn.edu.likelion.DemoAuthJWT.models.User;
 import vn.edu.likelion.DemoAuthJWT.repositories.UserRepository;
@@ -45,17 +46,14 @@ public class UserService {
     }
 
     @Transactional
-    public String forgotPassword(String email) {
+    public String forgotPassword(String email) throws AppException, MessagingException {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
 
-        try {
-
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            String newPassword = generateNewPassword();
+            emailUtil.sendNewPasswordEmail(email,newPassword);
+            user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
-            emailUtil.sendNewPasswordEmail(email,generateNewPassword());
-        }catch (MessagingException e) {
-            throw new RuntimeException("Unable to send set password email", e);
-        }
+
         return "Please check your email to set new password to your account";
     }
 

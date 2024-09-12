@@ -1,5 +1,6 @@
 package vn.edu.likelion.DemoAuthJWT.controllers;
 
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -67,7 +68,8 @@ public class UserController {
 
     @PutMapping("/password")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    public ResponseEntity<RestAPIResponse<Object>> forgotPassword(@RequestParam String email) {
+    public ResponseEntity<RestAPIResponse<Object>> forgotPassword(@RequestParam String email)
+            throws MessagingException {
         return responseUtil.buildResponse(RestAPIStatus.OK,userService.forgotPassword(email),HttpStatus.OK);
 
     }
