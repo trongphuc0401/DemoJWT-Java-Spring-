@@ -14,7 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import vn.edu.likelion.DemoAuthJWT.common.Role;
+import vn.edu.likelion.DemoAuthJWT.common.enums.Role;
 
 import java.util.Collection;
 import java.util.Date;

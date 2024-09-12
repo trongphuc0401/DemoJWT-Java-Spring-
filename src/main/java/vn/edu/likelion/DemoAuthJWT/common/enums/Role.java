@@ -1,6 +1,5 @@
-package vn.edu.likelion.DemoAuthJWT.common;
+package vn.edu.likelion.DemoAuthJWT.common.enums;
 
-import vn.edu.likelion.DemoAuthJWT.models.User;
 
 /**
  * Role -
